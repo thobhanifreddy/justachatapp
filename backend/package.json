@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "this is backend with firebase fucntions for just-a-chat-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "thobhanifreddy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase-admin": "^8.3.0",
+    "firebase-functions": "^3.2.0"
+  }
+}
