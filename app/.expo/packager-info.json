@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 82361,
+  "expoServerNgrokUrl": "https://qf-yz5.thobhanifreddy.app.exp.direct",
+  "packagerNgrokUrl": "https://packager.qf-yz5.thobhanifreddy.app.exp.direct",
+  "ngrokPid": 82369
 }
