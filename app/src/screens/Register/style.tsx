@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
 	loading:
 		{
-			flex: 1,
 			justifyContent: 'center',
 			alignSelf: 'center'
 		},
@@ -34,7 +33,8 @@ export const styles = StyleSheet.create({
 
 	errorMessage:
 		{
-			alignSelf: 'center',
-			marginTop: 5
+			marginTop: 5,
+			color: 'red',
+			marginLeft: 5
 		}
 });
