@@ -64,24 +64,38 @@ class User {
 		this.displayName = user.displayName;
 		this.photoURL = user.photoURL;
 		this.phoneNumber = user.phoneNumber;
+		this.gender = user.gender;
 		this.emailVerified = user.emailVerified;
 		this.disabled = user.disabled;
-		this.online = true;
+		this.online = user.online;
+	};
+
+	@action
+	get = async () => {
+		let currentUser: any = firebase.auth().currentUser;
+		let userSnapshot: any = await firebase.database().ref('users/' + currentUser.uid).once('value');
+		let user = await userSnapshot.toJSON();
+		user = { ...user, ...currentUser };
+		console.log('GET USER -> ', user);
+		runInAction(() => {
+			this.setUser(user);
+		});
 	};
 
 	@action
 	createFirebaseUserWithEmailAndPassword = async (email: string, password: string) => {
 		await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 		await firebase.auth().createUserWithEmailAndPassword(email, password);
+		console.log('user to be updated =>', this.displayName);
+		let firebaseUser: any = firebase.auth().currentUser;
+		console.log('user to be updated =>', firebaseUser.uid, this.displayName);
+		await firebaseUser.updateProfile({
+			displayName: this.displayName
+		});
+		await this.writeUserData(firebaseUser.uid, this.gender, this.phoneNumber, true);
 		runInAction(async () => {
-			let user: any = firebase.auth().currentUser;
-			this.uid = user.uid;
-
-			console.log('user to be updated =>', JSON.stringify(user));
-			await user.updateProfile({
-				displayName: this.displayName,
-				gender: this.gender
-			});
+			this.uid = firebaseUser.uid;
+			this.online = true;
 		});
 	};
 
@@ -96,12 +110,12 @@ class User {
 		});
 	};
 
-	@computed
-	get getFirebaseUser() {
-		let user: any = firebase.auth().currentUser;
-		console.log(user);
-		return user;
-	}
+	@action
+	writeUserData = async (uid: string, gender: string, phoneNumber: string, online: boolean) => {
+		console.log('create user with ->', uid, gender, phoneNumber, online);
+		var userRef = firebase.database().ref('users/' + uid);
+		await userRef.set({ gender, phoneNumber, online });
+	};
 }
 
 export default User;

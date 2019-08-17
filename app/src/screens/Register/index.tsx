@@ -75,6 +75,7 @@ class Register extends React.Component<any, any> {
 			loading.set(true);
 			try {
 				await user.createFirebaseUserWithEmailAndPassword(user.email, this.state.password);
+				console.log('REGISTRATION COMPLETED ->', this.props.user);
 				this.setState({ error: false, emailError: false });
 				navigation.navigate('Home');
 				loading.set(false);
@@ -88,7 +89,7 @@ class Register extends React.Component<any, any> {
 
 	render() {
 		let { user, navigation, loading } = this.props;
-
+		console.log(toJS(user));
 		return (
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled keyboardVerticalOffset={0}>
 				<View style={styles.container}>

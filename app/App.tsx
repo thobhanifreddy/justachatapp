@@ -8,8 +8,6 @@ import store from './src/Store/AppStore';
 import { config } from './config/firebase';
 import Navigation from './config/Navigation';
 
-makeInspectable(store);
-
 function App() {
 	firebase.initializeApp(config);
 	return (

@@ -17,6 +17,19 @@ class Login extends React.Component<any, any> {
 	}
 	static navigationOptions = { header: null };
 
+	componentDidMount = () => {
+		this.props.loading.set(false);
+
+		this.props.loading.set(true);
+		var unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				this.props.navigation.navigate('Home');
+				unsubscribe();
+			}
+			this.props.loading.set(false);
+		});
+	};
+
 	login = async () => {
 		let { user, loading } = this.props;
 		try {
@@ -31,20 +44,6 @@ class Login extends React.Component<any, any> {
 			this.setState({ error: true, message: error.message });
 			this.props.loading.set(false);
 		}
-	};
-
-	componentDidMount = () => {
-		this.props.loading.set(false);
-
-		this.props.loading.set(true);
-		firebase.auth().onAuthStateChanged((user) => {
-			console.log(user);
-			if (user) {
-				this.props.user.setUser(user);
-				this.props.navigation.navigate('Home');
-			}
-			this.props.loading.set(false);
-		});
 	};
 
 	render() {
