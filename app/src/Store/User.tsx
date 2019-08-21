@@ -74,8 +74,10 @@ class User {
 	get = async () => {
 		let currentUser: any = firebase.auth().currentUser;
 		let userSnapshot: any = await firebase.database().ref('users/' + currentUser.uid).once('value');
-		let user = await userSnapshot.toJSON();
-		user = { ...user, ...currentUser };
+		let dbUser = await userSnapshot.toJSON();
+		console.log('DB USER ->', dbUser.phoneNumber);
+		let user = { ...dbUser, ...currentUser };
+		user.phoneNumber = dbUser.phoneNumber;
 		console.log('GET USER -> ', user);
 		runInAction(() => {
 			this.setUser(user);
@@ -100,6 +102,16 @@ class User {
 	};
 
 	@action
+	update = async (user: any) => {
+		let firebaseUser = firebase.auth().currentUser;
+		await firebaseUser.updateProfile({ displayName: user.displayName, photoURL: user.photoURL });
+		await firebase
+			.database()
+			.ref('users/' + user.uid)
+			.set({ gender: user.gender, phoneNumber: user.phoneNumber, online: user.online });
+	};
+
+	@action
 	firebaseLogin = async (email: string, password: string) => {
 		await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 		await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -115,6 +127,11 @@ class User {
 		console.log('create user with ->', uid, gender, phoneNumber, online);
 		var userRef = firebase.database().ref('users/' + uid);
 		await userRef.set({ gender, phoneNumber, online });
+	};
+
+	@action
+	getById = (id: string) => {
+		return { justTesting: true };
 	};
 }
 
