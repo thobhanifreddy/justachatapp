@@ -5,7 +5,7 @@ import Loading from './Loading';
 
 class AppStore {
 	@observable loading: any = new Loading();
-	@observable user: any = new User();
+	@observable user: any = new User(null);
 }
 
 const store = new AppStore();

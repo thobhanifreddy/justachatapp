@@ -1,16 +1,21 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "this is backend with firebase fucntions for just-a-chat-app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "thobhanifreddy",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "firebase-admin": "^8.3.0",
-    "firebase-functions": "^3.2.0"
-  }
+	"name": "justachatapp",
+	"version": "1.0.0",
+	"description": "backend for just a chat app",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "thobhanifreddy",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/express": "^4.17.1",
+		"tslint": "^5.19.0",
+		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"firebase-admin": "^8.3.0"
+	}
 }

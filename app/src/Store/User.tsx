@@ -12,6 +12,20 @@ class User {
 	@observable disabled: boolean = false;
 	@observable online: boolean = true;
 
+	constructor(user: any) {
+		if (user) {
+			this.uid = user.uid;
+			this.email = user.email;
+			this.displayName = user.displayName;
+			this.photoURL = user.photoURL;
+			this.phoneNumber = user.phoneNumber;
+			this.gender = user.gender;
+			this.emailVerified = user.emailVerified;
+			this.disabled = user.disabled;
+			this.online = user.online;
+		}
+	}
+
 	@action
 	setUid = (id: string) => {
 		this.uid = id;
