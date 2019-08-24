@@ -1,19 +1,26 @@
 {
 	"name": "justachatapp-sdk",
-	"version": "0.1.2-alpha.0",
+	"version": "0.1.3-alpha.0",
 	"description": "sdk for just-a-chat-app",
 	"author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
 	"homepage": "",
 	"license": "ISC",
 	"main": "lib/src/models/index.js",
 	"babel": {
-		"resolve": { "extensions": [ ".ts", ".js" ] }
+		"resolve": {
+			"extensions": [
+				".ts",
+				".js"
+			]
+		}
 	},
 	"directories": {
 		"lib": "lib",
 		"test": "__tests__"
 	},
-	"files": [ "lib" ],
+	"files": [
+		"lib"
+	],
 	"scripts": {
 		"tsc": "tsc",
 		"lint": "tslint --project tsconfig.json",
