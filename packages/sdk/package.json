@@ -1,13 +1,16 @@
 {
 	"name": "justachatapp-sdk",
-	"version": "0.1.2-alpha.0",
+	"version": "0.1.3-alpha.0",
 	"description": "sdk for just-a-chat-app",
 	"author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
 	"homepage": "",
 	"license": "ISC",
 	"main": "lib/src/models/index.js",
 	"babel": {
-		"resolve": { "extensions": [ ".ts", ".js" ] }
+		"resolve": {
+			"extensions": [ ".ts", ".js" ]
+		},
+		"plugins": [ "babel-plugin-transform-runtime", "babel-runtime" ]
 	},
 	"directories": {
 		"lib": "lib",
@@ -25,6 +28,8 @@
 		"logs": "firebase functions:log"
 	},
 	"dependencies": {
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"babel-runtime": "^6.26.0",
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"firebase-admin": "^8.0.0",
