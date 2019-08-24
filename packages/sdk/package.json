@@ -1,6 +1,6 @@
 {
 	"name": "justachatapp-sdk",
-	"version": "0.1.0-alpha.0",
+	"version": "0.1.1-alpha.0",
 	"description": "sdk for just-a-chat-app",
 	"author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
 	"homepage": "",
@@ -10,7 +10,9 @@
 		"lib": "lib",
 		"test": "__tests__"
 	},
-	"files": [ "lib" ],
+	"files": [
+		"lib"
+	],
 	"scripts": {
 		"tsc": "tsc",
 		"lint": "tslint --project tsconfig.json",
