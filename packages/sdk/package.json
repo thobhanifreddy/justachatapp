@@ -1,0 +1,37 @@
+{
+	"name": "justachatapp-sdk",
+	"version": "0.0.0",
+	"description": "sdk for just-a-chat-app",
+	"author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
+	"homepage": "",
+	"license": "ISC",
+	"main": "index.js",
+	"directories": {
+		"lib": "lib",
+		"test": "__tests__"
+	},
+	"files": [
+		"lib"
+	],
+	"scripts": {
+		"tsc": "tslint --project tsconfig.json",
+		"lint": "tslint --project tsconfig.json",
+		"build": "./node_modules/.bin/tslint -p tslint.json && ./node_modules/.bin/tsc",
+		"serve": "npm run build && firebase serve --only functions",
+		"shell": "npm run build && firebase functions:shell",
+		"start": "npm run shell",
+		"deploy": "firebase deploy --only functions",
+		"logs": "firebase functions:log"
+	},
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"firebase-admin": "^8.0.0",
+		"firebase-functions": "^3.1.0",
+		"mobx": "^5.13.0"
+	},
+	"devDependencies": {
+		"tslint": "^5.12.0",
+		"typescript": "^3.2.2"
+	}
+}
