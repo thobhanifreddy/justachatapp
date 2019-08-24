@@ -1,11 +1,11 @@
 {
 	"name": "justachatapp-sdk",
-	"version": "0.1.0-alpha.0",
+	"version": "0.1.1-alpha.0",
 	"description": "sdk for just-a-chat-app",
 	"author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
 	"homepage": "",
 	"license": "ISC",
-	"main": "lib/index.js",
+	"main": "lib/models/index.js",
 	"directories": {
 		"lib": "lib",
 		"test": "__tests__"
