@@ -5,16 +5,14 @@
 	"author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
 	"homepage": "",
 	"license": "ISC",
-	"main": "index.js",
+	"main": "lib/index.js",
 	"directories": {
 		"lib": "lib",
 		"test": "__tests__"
 	},
-	"files": [
-		"lib"
-	],
+	"files": [ "lib" ],
 	"scripts": {
-		"tsc": "tslint --project tsconfig.json",
+		"tsc": "tsc",
 		"lint": "tslint --project tsconfig.json",
 		"build": "./node_modules/.bin/tslint -p tslint.json && ./node_modules/.bin/tsc",
 		"serve": "npm run build && firebase serve --only functions",
