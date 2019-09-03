@@ -1,5 +1,6 @@
 import { observable, action, runInAction } from 'mobx';
-import * as admin from 'firebase-admin';
+
+let firebase: any = {}
 
 class User {
 	@observable uid: string = '';
@@ -25,6 +26,13 @@ class User {
 			this.online = user.online;
 		}
 	}
+
+	@action
+	setFirebaseInstance = (instance: any) => {
+		firebase = instance;
+	};
+
+
 
 	@action
 	setUid = (id: string) => {
@@ -85,13 +93,13 @@ class User {
 	};
 
 	@action
-	get = async (id: string) => {
-		const currentUser: any = admin.auth().getUser(id);
-		const userSnapshot: any = await admin.database().ref('users/' + currentUser.uid).once('value');
-		const dbUser = await userSnapshot.toJSON();
+	get = async () => {
+		let currentUser: any = firebase.auth().currentUser;
+		let userSnapshot: any = await firebase.database().ref('users/' + currentUser.uid).once('value');
+		let dbUser = await userSnapshot.toJSON();
 		console.log('DB USER ->', dbUser.phoneNumber);
-		const user = { ...dbUser, ...currentUser };
-		// user.phoneNumber = dbUser.phoneNumber;
+		let user = { ...dbUser, ...currentUser };
+		user.phoneNumber = dbUser.phoneNumber;
 		console.log('GET USER -> ', user);
 		runInAction(() => {
 			this.setUser(user);
@@ -100,18 +108,15 @@ class User {
 
 	@action
 	createFirebaseUserWithEmailAndPassword = async (email: string, password: string) => {
-		await admin.auth().createUser({
-			email: email,
-			emailVerified: false,
-			phoneNumber: this.phoneNumber,
-			password: password,
-			displayName: this.displayName,
-			photoURL: this.photoURL,
-			disabled: false
+		await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+		await firebase.auth().createUserWithEmailAndPassword(email, password);
+		console.log('user to be updated =>', this.displayName);
+		let firebaseUser: any = firebase.auth().currentUser;
+		console.log('user to be updated =>', firebaseUser.uid, this.displayName);
+		await firebaseUser.updateProfile({
+			displayName: this.displayName
 		});
-		// await firebase.auth().createUserWithEmailAndPassword(email, password);
-		const firebaseUser: any = await admin.auth().getUserByEmail(email);
-		await this.writeUserData(firebaseUser.uid, this.gender, true);
+		await this.writeUserData(firebaseUser.uid, this.gender, this.phoneNumber, true);
 		runInAction(() => {
 			this.uid = firebaseUser.uid;
 			this.online = true;
@@ -120,30 +125,37 @@ class User {
 
 	@action
 	update = async (user: any) => {
-		await admin.auth().updateUser(user.uid, {
-			displayName: user.displayName,
-			phoneNumber: user.phoneNumber,
-			photoURL: user.photoURL
-		});
-		await admin.database().ref('users/' + user.uid).set({ gender: user.gender, online: user.online });
+		let firebaseUser = firebase.auth().currentUser;
+		if (firebaseUser) {
+			await firebaseUser.updateProfile({ displayName: user.displayName, photoURL: user.photoURL });
+			await firebase
+				.database()
+				.ref('users/' + user.uid)
+				.set({ gender: user.gender, phoneNumber: user.phoneNumber, online: user.online });
+		}
 	};
 
-	// @action
-	// firebaseLogin = async (email: string, password: string) => {
-	//   // await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+	@action
+	firebaseLogin = async (email: string, password: string) => {
+		await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+		await firebase.auth().signInWithEmailAndPassword(email, password);
 
-	// 	await firebase.auth().signInWithEmailAndPassword(email, password);
-
-	// 	runInAction(() => {
-	// 		let user: any = firebase.auth().currentUser;
-	// 		this.setUser(user);
-	// 	});
-	// };
+		runInAction(() => {
+			let user: any = firebase.auth().currentUser;
+			this.setUser(user);
+		});
+	};
 
 	@action
-	writeUserData = async (uid: string, gender: string, online: boolean) => {
-		console.log('create user with ->', uid, gender, online);
-		await admin.database().ref('users/' + uid).set({ gender, online });
+	writeUserData = async (uid: string, gender: string, phoneNumber: string, online: boolean) => {
+		console.log('create user with ->', uid, gender, phoneNumber, online);
+		var userRef = firebase.database().ref('users/' + uid);
+		await userRef.set({ gender, phoneNumber, online });
+	};
+
+	@action
+	getById = (id: string) => {
+		return { justTesting: true };
 	};
 }
 

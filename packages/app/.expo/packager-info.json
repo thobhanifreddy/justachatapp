@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://pm-2g8.thobhanifreddy.app.exp.direct",
+  "packagerNgrokUrl": "https://packager.pm-2g8.thobhanifreddy.app.exp.direct",
+  "ngrokPid": 44508
 }

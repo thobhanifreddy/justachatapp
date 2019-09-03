@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { Headline, Button, Text } from 'react-native-paper';
 import { View } from 'react-native';
 import firebase from 'firebase';
+// import User from 'justachatapp-sdk';
 
 import NavBar from '../../components/NavBar';
 
@@ -17,7 +18,9 @@ class Home extends React.Component<any, any> {
 	componentDidMount = async () => {
 		this.props.loading.set(false);
 		await this.props.user.get();
-		console.log(this.props.user.gender === 'm' ? 'Male' : this.props.user.gender === 'f' ? 'Female' : 'Other');
+		// let test = new User(null);
+		// await test.get();
+		// console.log('SDK user', test);
 	};
 
 	logout = async () => {

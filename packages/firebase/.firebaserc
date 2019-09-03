@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "just-a-chat-app-freddy-ts",
+    "stagging": "just-a-chat-app-freddy-ts"
+  }
+}

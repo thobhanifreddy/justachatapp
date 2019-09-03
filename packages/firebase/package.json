@@ -1,0 +1,29 @@
+{
+  "name": "justachatapp-firebase",
+  "version": "0.1.4-alpha.0",
+  "description": "firebase nodejs app for just a chat app",
+  "author": "Freddy Thobhani <thobhani.freddy@gmail.com>",
+  "homepage": "https://github.com/thobhanifreddy/justachatapp#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thobhanifreddy/justachatapp.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/thobhanifreddy/justachatapp/issues"
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0"
+  }
+}

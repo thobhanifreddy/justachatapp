@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitReturns": true,
@@ -9,13 +8,10 @@
     "strict": true,
     "target": "es2017",
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
   },
   "compileOnSave": true,
   "include": [
-    "./src/"
-  ],
-  "files": [
-    "node_modules/typescript/lib/lib.es6.d.ts"
-  ],
- }
- 
+    "src"
+  ]
+}
