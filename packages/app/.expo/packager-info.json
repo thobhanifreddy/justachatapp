@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19005,
+  "packagerPid": 86254,
   "expoServerNgrokUrl": "https://pm-2g8.thobhanifreddy.app.exp.direct",
   "packagerNgrokUrl": "https://packager.pm-2g8.thobhanifreddy.app.exp.direct",
-  "ngrokPid": 44508
+  "ngrokPid": 86264
 }

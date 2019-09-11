@@ -20,12 +20,12 @@ class Login extends React.Component<any, any> {
 	componentDidMount = () => {
 		this.props.loading.set(false);
 		this.props.loading.set(true);
-		var unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+		var unsubscribe:any = firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
-				this.props.navigation.navigate('Home');
 				unsubscribe();
+				this.props.navigation.navigate('Home');
+				
 			}
-			this.props.loading.set(false);
 		});
 	};
 

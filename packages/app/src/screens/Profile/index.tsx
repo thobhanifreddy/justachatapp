@@ -63,9 +63,20 @@ class Profile extends React.Component<any, any> {
 		}
 	};
 
+	uploadImage = async () => {
+		const response = await fetch(this.props.user.photoURL);
+		const blob = await response.blob();
+		let ref = await firebase.storage().ref().child(this.props.user.uid);
+		await ref.put(blob);
+		let downloadUrl = await ref.getDownloadURL();
+		this.props.user.setPhotoUrl(downloadUrl);
+		return downloadUrl;
+	};
+
 	_handleUplaod = async () => {
 		this.props.loading.set(true);
 		try {
+			await this.uploadImage();
 			await this.props.user.update(this.props.user);
 			this.props.loading.set(false);
 			alert('Profile Updated Successfully');
@@ -88,9 +99,14 @@ class Profile extends React.Component<any, any> {
 						<Card.Content>
 							<View>
 								<Card.Cover
-									style={{ height: Dimensions.get('screen').height / 2.5 }}
+									style={{ height: Dimensions.get('screen').height / 2.5, resizeMode: 'contain' }}
 									source={{
-										uri: user.photoURL ? user.photoURL : 'https://picsum.photos/700'
+										uri:
+											user.photoURL
+												? user.photoURL
+												: `https://source.unsplash.com/random/300x300/?${user.gender == 'm'
+														? 'male'
+														: 'female'},face`
 									}}
 								/>
 								<IconButton

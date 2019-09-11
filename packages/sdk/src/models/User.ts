@@ -95,15 +95,21 @@ class User {
 	@action
 	get = async () => {
 		let currentUser: any = firebase.auth().currentUser;
-		let userSnapshot: any = await firebase.database().ref('users/' + currentUser.uid).once('value');
-		let dbUser = await userSnapshot.toJSON();
-		console.log('DB USER ->', dbUser.phoneNumber);
-		let user = { ...dbUser, ...currentUser };
-		user.phoneNumber = dbUser.phoneNumber;
-		console.log('GET USER -> ', user);
-		runInAction(() => {
-			this.setUser(user);
-		});
+		console.log(currentUser);
+		if (currentUser) {
+			let userSnapshot: any = await firebase.database().ref('users/' + currentUser.uid).once('value');
+			let dbUser = await userSnapshot.toJSON();
+			console.log('DB USER ->', dbUser.phoneNumber);
+			let user = { ...dbUser, ...currentUser };
+			user.phoneNumber = dbUser.phoneNumber;
+			console.log('GET USER -> ', user);
+			runInAction(() => {
+				this.setUser(user);
+			});
+		} else {
+			throw new Error("User not found")
+		}
+
 	};
 
 	@action
@@ -154,9 +160,10 @@ class User {
 	};
 
 	@action
-	getById = (id: string) => {
-		return { justTesting: true };
-	};
+	getAll = async () => {
+		let users = await fetch("https://us-central1-just-a-chat-app-freddy-ts.cloudfunctions.net/api/Users");
+		return users;
+	}
 }
 
 export default User;
